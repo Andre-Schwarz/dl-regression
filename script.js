@@ -3,13 +3,14 @@
  * and cleaned of missing data.
  */
 async function getData() {
-    const carsDataResponse = await fetch('https://storage.googleapis.com/tfjs-tutorials/carsData.json');
-    const carsData = await carsDataResponse.json();
-    const cleaned = carsData.map(car => ({
-        mpg: car.Miles_per_Gallon,
-        horsepower: car.Horsepower,
+    const testDataResponse = await fetch('data/test.json');
+
+    const testData = await testDataResponse.json();
+    const cleaned = testData.map(dataEntry => ({
+        x: dataEntry.x,
+        y: dataEntry.y,
     }))
-        .filter(car => (car.mpg != null && car.horsepower != null));
+        .filter(dataEntry => (dataEntry.x != null && dataEntry.y != null));
 
     return cleaned;
 }
@@ -17,17 +18,17 @@ async function getData() {
 async function run() {
     // Load and plot the original input data that we are going to train on.
     const data = await getData();
-    const values = data.map(d => ({
-        x: d.horsepower,
-        y: d.mpg,
+    const values = data.map(dataEntry => ({
+        x: dataEntry.x,
+        y: dataEntry.y,
     }));
 
     tfvis.render.scatterplot(
-        {name: 'Horsepower v MPG'},
+        {name: 'x v value'},
         {values},
         {
-            xLabel: 'Horsepower',
-            yLabel: 'MPG',
+            xLabel: 'x',
+            yLabel: 'y',
             height: 300
         }
     );
@@ -78,8 +79,8 @@ function convertToTensor(data) {
         tf.util.shuffle(data);
 
         // Step 2. Convert data to Tensor
-        const inputs = data.map(d => d.horsepower)
-        const labels = data.map(d => d.mpg);
+        const inputs = data.map(d => d.x)
+        const labels = data.map(d => d.y);
 
         const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
         const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
@@ -157,7 +158,7 @@ function testModel(model, inputData, normalizationData) {
     });
 
     const originalPoints = inputData.map(d => ({
-        x: d.horsepower, y: d.mpg,
+        x: d.x, y: d.y,
     }));
 
 
@@ -165,8 +166,8 @@ function testModel(model, inputData, normalizationData) {
         {name: 'Model Predictions vs Original Data'},
         {values: [originalPoints, predictedPoints], series: ['original', 'predicted']},
         {
-            xLabel: 'Horsepower',
-            yLabel: 'MPG',
+            xLabel: 'x',
+            yLabel: 'y',
             height: 300
         }
     );
