@@ -6,13 +6,56 @@ async function getData() {
     const testDataResponse = await fetch('data/test.json');
 
     const testData = await testDataResponse.json();
-    const cleaned = testData.map(dataEntry => ({
+    return testData.map(dataEntry => ({
         x: dataEntry.x,
         y: dataEntry.y,
     }))
         .filter(dataEntry => (dataEntry.x != null && dataEntry.y != null));
+}
 
-    return cleaned;
+async function trainModel(model, inputs, labels) {
+    // Prepare the model for training.
+    model.compile({
+        optimizer: tf.train.adam(learningrate= 0.1),
+        loss: tf.losses.meanSquaredError,
+        metrics: ['mse'],
+    });
+
+    // Adadelta
+    // Adagrad
+    // Adam
+    // Adamax
+    // Momentum
+    // RMSProp
+    // SGD
+
+
+    const batchSize = 64;
+    const epochs = 20;
+
+    return await model.fit(inputs, labels, {
+        batchSize,
+        epochs,
+        shuffle: true,
+        callbacks: tfvis.show.fitCallbacks(
+            { name: 'Training Performance' },
+            ['loss', 'mse'],
+            { height: 200, callbacks: ['onEpochEnd'] }
+        )
+    });
+}
+
+function createModel() {
+    // Create a sequential model
+    const model = tf.sequential();
+
+    // Add a single input layer
+    model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+
+    // Add an output layer
+    model.add(tf.layers.dense({units: 1, useBias: true}));
+
+    return model;
 }
 
 async function run() {
@@ -49,19 +92,6 @@ async function run() {
     // Make some predictions using the model and compare them to the
     // original data
     testModel(model, data, tensorData);
-}
-
-function createModel() {
-    // Create a sequential model
-    const model = tf.sequential();
-
-    // Add a single input layer
-    model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
-
-    // Add an output layer
-    model.add(tf.layers.dense({units: 1, useBias: true}));
-
-    return model;
 }
 
 /**
@@ -103,29 +133,6 @@ function convertToTensor(data) {
             labelMax,
             labelMin,
         }
-    });
-}
-
-async function trainModel(model, inputs, labels) {
-    // Prepare the model for training.
-    model.compile({
-        optimizer: tf.train.adam(),
-        loss: tf.losses.meanSquaredError,
-        metrics: ['mse'],
-    });
-
-    const batchSize = 32;
-    const epochs = 50;
-
-    return await model.fit(inputs, labels, {
-        batchSize,
-        epochs,
-        shuffle: true,
-        callbacks: tfvis.show.fitCallbacks(
-            { name: 'Training Performance' },
-            ['loss', 'mse'],
-            { height: 200, callbacks: ['onEpochEnd'] }
-        )
     });
 }
 
