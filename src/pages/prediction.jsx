@@ -43,7 +43,7 @@ function PredictionPage() {
             // dataSmallJson
             // dataMediumJson
             // dataBigJson
-            return dataBigJson.map(dataEntry => ({
+            return dataMediumJson.map(dataEntry => ({
                 x: dataEntry.x,
                 y: dataEntry.y,
             }))
@@ -99,19 +99,19 @@ function PredictionPage() {
         const trainModel = async (model, inputs, labels) => {
             // Prepare the model for training.
             model.compile({
-                // optimizer: tf.train.adam(learningRate= 0.1),
-                optimizer: tf.train.adam(),
+                // optimizer: tf.train.adam(0.0001),
+                optimizer: tf.train.adamax(0.01),
                 loss: tf.losses.meanSquaredError,
                 metrics: ['mse'],
             });
 
-            // Adadelta
-            // Adagrad
-            // Adam
-            // Adamax
-            // Momentum
-            // RMSProp
-            // SGD
+            // adadelta
+            // adagrad
+            // adam
+            // adamax
+            // momentum
+            // rmsprop
+            // sgd
 
 
             const batchSize = 32; // 5, 20, 32, 64

@@ -11,6 +11,10 @@ import small_deep from "../images/small_deep.png"
 import loss_overfitting from "../images/loss_overfitting.png"
 import bias_variance from "../images/bias_variance.jpeg"
 
+import learningRate_small from "../images/learningRate_small.png"
+import learningRate_normal from "../images/learningRate_normal.png"
+import learningRate_high from "../images/learningRate_high.png"
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -28,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
     LoginButton: {
         marginRight: 50
+    },
+    horizontalImages: {
+        display: "flex",
+        flexDirection: "row"
     }
 }));
 
@@ -86,8 +94,10 @@ const DocumentationPage = () => {
                 </p>
                 <h3>Overfitting</h3>
                 <p>
-                    Bei der Verwenung des großen Datensatzes zusammen mit einem sehr kleinen Netz (lediglich Ein- und Ausgabeschicht) kommt es zu einem Overfitting.
-                    Der Fehler der beim Training entsteht fällt sehr schnell ab und bleibt nach einigen wenigen Epochs ohne große Änderungen.
+                    Bei der Verwenung des großen Datensatzes zusammen mit einem sehr kleinen Netz (lediglich Ein- und
+                    Ausgabeschicht) kommt es zu einem Overfitting.
+                    Der Fehler der beim Training entsteht fällt sehr schnell ab und bleibt nach einigen wenigen Epochs
+                    ohne große Änderungen.
                     Das Modell hat die Trainingsdaten auswendig gelernt. <br/>
                     <img src={loss_overfitting}/>
                 </p>
@@ -95,21 +105,32 @@ const DocumentationPage = () => {
 
                 <h3>Bias und Varianz</h3>
 
-                Es gibt Modelle, die zu vereinfacht sind und wichtige Beziehungen in den Trainingsdaten ignorieren, die ihre Vorhersagen hätten verbessern können.
-                Bei solchen Modellen spricht man von einem hohen Bias. Wenn ein Modell einen hohen Bias hat, sind die Vorhersagen konsistent falsch,
+                Es gibt Modelle, die zu vereinfacht sind und wichtige Beziehungen in den Trainingsdaten ignorieren, die
+                ihre Vorhersagen hätten verbessern können.
+                Bei solchen Modellen spricht man von einem hohen Bias. Wenn ein Modell einen hohen Bias hat, sind die
+                Vorhersagen konsistent falsch,
                 im besten Fall nur für bestimmte Bereiche der Daten und nicht für den gesamten Bereich.
-                Wenn wie in diesem Beispiel versucht, eine Linie an ein Streudiagramm anzupassen bei dem die Daten einem kurvenlinearen Muster zu folgen scheinen,
+                Wenn wie in diesem Beispiel versucht, eine Linie an ein Diagramm anzupassen bei dem die Daten einem
+                kurvenlinearen Muster folgen,
                 ist es relativ vorhersehbar, dass sich das Modell nicht gut an die Daten anpassen kann.
-                In einigen Teilen des Diagramms wird die Linie unter die Kurve fallen und in anderen Teilen wird sie über der Kurve liegen, wobei sie versucht, dem Verlauf einer Kurve zu folgen.
+                In einigen Teilen des Diagramms wird die Linie unter die Kurve fallen und in anderen Teilen wird sie
+                über der Kurve liegen, wobei sie versucht, dem Verlauf einer Kurve zu folgen.
 
-                Es handelt sich also um Vorhersagen, die konstant falsch sind. Bei Modellen mit einem hohen Bias spricht man von einer Unteranpassung [an die Trainingsdaten],
+                Es handelt sich also um Vorhersagen, die konstant falsch sind. Bei Modellen mit einem hohen Bias spricht
+                man von einer Unteranpassung [an die Trainingsdaten],
                 und daher ist der Vorhersagefehler sowohl bei den Trainingsdaten als auch bei den Testdaten hoch.
-                Einige Modelle sind zu komplex, und bei der Suche nach wichtigen Beziehungen zwischen den Variablen werden zufällig auch bestimmte Beziehungen erfasst,
-                die sich nur als Ergebnis von Rauschen herausstellen. Mit anderen Worten, das Modell berücksichtigt bestimmte "Ausreißer" in den Trainingsdaten,
-                die sich nicht auf die Testdaten verallgemeinern lassen. In einem solchen Fall liegen die Vorhersagen des Modells wieder einmal daneben,
-                aber hier ist der wichtige Teil: Sie liegen nicht konstant daneben. Bei kleinen Änderungen der Daten, können sehr unterschiedliche Vorhersagen gemacht werden.
-                Das Modell ist also zu empfindlich und reagiert übermäßig auf die Veränderung der Daten. Bei Modellen mit hoher Varianz spricht man von einer
-                Überanpassung [an die Trainingsdaten], und daher ist ihr Vorhersagefehler bei den Trainingsdaten trügerisch niedrig, bei den Testdaten aber hoch,
+                Einige Modelle sind zu komplex, und bei der Suche nach wichtigen Beziehungen zwischen den Variablen
+                werden zufällig auch bestimmte Beziehungen erfasst,
+                die sich nur als Ergebnis von Rauschen herausstellen. Mit anderen Worten, das Modell berücksichtigt
+                bestimmte "Ausreißer" in den Trainingsdaten,
+                die sich nicht auf die Testdaten verallgemeinern lassen. In einem solchen Fall liegen die Vorhersagen
+                des Modells wieder einmal daneben,
+                aber hier ist der wichtige Teil: Sie liegen nicht konstant daneben. Bei kleinen Änderungen der Daten,
+                können sehr unterschiedliche Vorhersagen gemacht werden.
+                Das Modell ist also zu empfindlich und reagiert übermäßig auf die Veränderung der Daten. Bei Modellen
+                mit hoher Varianz spricht man von einer
+                Überanpassung [an die Trainingsdaten], und daher ist ihr Vorhersagefehler bei den Trainingsdaten
+                trügerisch niedrig, bei den Testdaten aber hoch,
                 daher die fehlende Generalisierung.
 
                 <br/>
@@ -118,11 +139,36 @@ const DocumentationPage = () => {
                 <img src={bias_variance}/>
                 <br/>https://towardsdatascience.com/bias-and-variance-but-what-are-they-really-ac539817e171 <br/> <br/>
 
-                Das Ziel ist dementsprechend das Modell auf die Modell Komplexität anzupassen. Ein unglaubwürdig geringer Fehler beim Training weist auf ein Problem hin. Dies ist bei
+                Das Ziel ist dementsprechend das Modell auf die Modell Komplexität anzupassen. Ein unglaubwürdig
+                geringer Fehler beim Training weist auf ein Problem hin. Dies ist bei
                 den Versuchen zu dieser Aufgabe geschehen (beschrieben in Under- Overfitting).
 
                 <h2>Aktivierungsfunktionen</h2>
                 <h2>Lernrate und Optimizer</h2>
+
+                Die Lernrate ist ein sehr wichtiger Hyperparameter bei der Modellerstellung. Dieser steuert wie stark
+                das Modell auf den geschätzten Fehler
+                nach der Aktualisierung der Gewichte reagieren soll.
+                Eine zu kleine Lernrate führt zu einem sehr langen Training, ein zu großer Wert zu einem zu schnellen
+                und instabilen Lernen,
+                wodurch der Lernprozess sehr schnell zum erliegen kommen kann. Dieses Verhalten ist übergreifend über
+                alle Optimizer zu beobachten. Die folgenden
+                Bilder zeigen das Verhalten beispielhaft am "Adam Optimizer":
+
+                <div className="horizontalImages">
+                    <img src={learningRate_small}/>
+                    <img src={learningRate_normal}/>
+                    <img src={learningRate_high}/>
+                </div>
+
+                <br/>
+                Bei dem ersten Beispiel wurde eine Lernrate von 0.0001 gewählt. Hier ist ein enorm hoher Fehler zu erkennen,
+                der sich im Laufe des Trainings kaum verringert.
+                Das zweite Beispiel wurde mit der Standard Lernrate von 0.001 durchgeführt. Hierbei ist eine Verringerung des Fehlers erkennbar,
+                der über den vollen Trainingsvorgang stetig abnimmt.
+                Das dritte Beispiel wurde mit einer Lernrate von 0.5 durchgeführt. Der Fehler nimmt schon nach dem ersten Epoch stark ab und läuft
+                dann auf einem sehr geringen Level weiter. Der Lernprozess findet jetzt kaum noch statt.
+
                 <h2>Anzahl der Epochs/Batch sizes</h2>
                 <p>
                     Die Anzahl der Epochs wurde zum Start auf 20 festgelegt. Um eine vergleichbare Erzeugung des Models
