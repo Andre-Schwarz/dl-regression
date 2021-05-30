@@ -10,6 +10,13 @@ import dataSmallJson from "../data/data_small.json"
 import dataMediumJson from "../data/data_medium.json"
 import dataBigJson from "../data/data_big.json"
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {Link} from "react-router-dom";
@@ -210,8 +217,12 @@ function PredictionPage() {
             return [unNormXs.dataSync(), unNormPreds.dataSync()];
         });
 
-        predictionValueRef.current.value = pred[0]
-        console.log(pred[0]);
+        let predElement = pred[0];
+
+        if (predElement) {
+            predictionValueRef.current.value = predElement
+            console.log(predElement);
+        }
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -226,7 +237,7 @@ function PredictionPage() {
             background: "#607d8b"
         },
         DokuButton: {
-            marginRight: 50,
+            marginRight: 750,
             color: "white"
         },
         content: {
@@ -246,6 +257,12 @@ function PredictionPage() {
             width: "fit-content",
             marginTop: 10,
             marginBottom: 10
+        },
+        table: {
+            width: 250,
+        },
+        prediction: {
+            marginLeft: 20
         }
     }));
     const classes = useStyles();
@@ -254,6 +271,19 @@ function PredictionPage() {
         // await model.save('downloads://my-model')
         tfvis.visor().toggle()
     }
+
+    function createData(name, value) {
+        return {name, value};
+    }
+
+    const rows = [
+        createData('Batch Size', 32),
+        createData('Optimizer', "Adam"),
+        createData('Learning Rate', 0.001),
+        createData('Epochs', 20),
+        createData('Loss', "MSE"),
+        createData('Training Data size', 500)
+    ];
 
     return <div>
         <AppBar position="static" className={classes.AppBar}>
@@ -268,17 +298,17 @@ function PredictionPage() {
         </AppBar>
 
         <div className={classes.content}>
-            <Button variant="contained" color="primary" onClick={predictValue} className={classes.funcButton}> Wert vorhersagen</Button>
+            <Button variant="contained" color="primary" onClick={predictValue} className={classes.funcButton}> Wert
+                vorhersagen</Button>
             <div className={classes.horizontalImages}>
                 <TextField id="userInput" label="User Input" type="number" variant="outlined"
                            inputRef={userInputValueRef}/>
                 <TextField
                     id="prediction"
-                    label="Prediction"
-                    defaultValue="Hello World"
                     InputProps={{
                         readOnly: true,
                     }}
+                    className={classes.prediction}
                     inputRef={predictionValueRef}
                 />
                 {/*<TextField id="prediction" label="Prediction" type="readOnly" variant="outlined" InputProps={{*/}
@@ -286,10 +316,32 @@ function PredictionPage() {
                 {/*}}*/}
                 {/*           inputRef={predictionValueRef}/>*/}
             </div>
-            <Button variant="contained" color="primary" onClick={toggleVisorVisibility} className={classes.funcButton}>Modelldetails
+            <Button variant="primary" color="primary" onClick={toggleVisorVisibility} className={classes.funcButton}>Modelldetails
                 anzeigen/ausblenden</Button>
-            <Button variant="contained" color="primary" onClick={startModelCreationChain} className={classes.funcButton}>Modellerstellung
+            <Button variant="primary"  onClick={startModelCreationChain}
+                    className={classes.funcButton}>Modellerstellung
                 neustarten</Button>
+
+            <TableContainer component={Paper} className={classes.table}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Dessert (100g serving)</TableCell>
+                            <TableCell align="right">Value</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row) => (
+                            <TableRow key={row.name}>
+                                <TableCell component="th" scope="row">
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="right">{row.value}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     </div>;
 }

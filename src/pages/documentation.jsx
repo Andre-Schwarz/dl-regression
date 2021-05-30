@@ -67,7 +67,7 @@ const DocumentationPage = () => {
                 beiden Seiten (React Router).
 
                 <h4>Tensorflow js</h4>
-                Tensorflow ist ein Framework, das die Erstellung von Neuronalen Netzen ermöglicht. In diesem Fall wurde die Version fü2r Javascript
+                Tensorflow ist ein Framework, das die Erstellung von Neuronalen Netzen ermöglicht. In diesem Fall wurde die Version für Javascript
                 verwendet.
                 <h4>tensorflow/tfjs-vis</h4>
                 tfjs-vis ist eine Bibliothek von Tensorflow die es erlaubt die erstellten Modelle zu visualisieren und das Training zu überwachen.
@@ -143,7 +143,7 @@ const DocumentationPage = () => {
                 daher die fehlende Generalisierung.
 
                 <br/>
-                Der Zusammenhand ist in folgendem Bild sehr gut ersichtlich :
+                Der Zusammenhang ist in folgendem Bild sehr gut ersichtlich :
 
                 <img src={bias_variance}/>
                 <br/>https://towardsdatascience.com/bias-and-variance-but-what-are-they-really-ac539817e171 <br/> <br/>
