@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/dl-regression/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/dl-regression/static/js/main.8bd9ed1b.chunk.js",
+    "main.js.map": "/dl-regression/static/js/main.8bd9ed1b.chunk.js.map",
+    "runtime-main.js": "/dl-regression/static/js/runtime-main.2cc15c77.js",
+    "runtime-main.js.map": "/dl-regression/static/js/runtime-main.2cc15c77.js.map",
+    "static/js/2.2670fc1e.chunk.js": "/dl-regression/static/js/2.2670fc1e.chunk.js",
+    "static/js/2.2670fc1e.chunk.js.map": "/dl-regression/static/js/2.2670fc1e.chunk.js.map",
+    "static/js/3.616463e6.chunk.js": "/dl-regression/static/js/3.616463e6.chunk.js",
+    "static/js/3.616463e6.chunk.js.map": "/dl-regression/static/js/3.616463e6.chunk.js.map",
+    "index.html": "/dl-regression/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/dl-regression/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.2670fc1e.chunk.js.LICENSE.txt": "/dl-regression/static/js/2.2670fc1e.chunk.js.LICENSE.txt",
+    "static/media/bias_variance.d3639136.jpeg": "/dl-regression/static/media/bias_variance.d3639136.jpeg",
+    "static/media/learningRate_high.c408a93a.png": "/dl-regression/static/media/learningRate_high.c408a93a.png",
+    "static/media/learningRate_normal.07c7452d.png": "/dl-regression/static/media/learningRate_normal.07c7452d.png",
+    "static/media/learningRate_small.60e9963c.png": "/dl-regression/static/media/learningRate_small.60e9963c.png",
+    "static/media/loss_overfitting.0c1dcbb9.png": "/dl-regression/static/media/loss_overfitting.0c1dcbb9.png",
+    "static/media/small_batch32.392cf0c8.png": "/dl-regression/static/media/small_batch32.392cf0c8.png",
+    "static/media/small_deep.c0187fa5.png": "/dl-regression/static/media/small_deep.c0187fa5.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2cc15c77.js",
+    "static/js/2.2670fc1e.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.8bd9ed1b.chunk.js"
+  ]
+}
