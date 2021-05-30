@@ -28,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
         color: "black"
     },
     AppBar: {
-        background: "beige"
+        background : "#607d8b"
     },
     LoginButton: {
-        marginRight: 50
+        marginRight: 50,
+        color: "white"
     },
     horizontalImages: {
         display: "flex",

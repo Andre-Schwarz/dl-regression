@@ -19,6 +19,7 @@ import {makeStyles} from "@material-ui/core/styles";
 function PredictionPage() {
 
     const userInputValueRef = useRef(0)
+    const predictionValueRef = useRef()
     let model;
     let tensorData;
     let inputMax;
@@ -38,6 +39,10 @@ function PredictionPage() {
     }
 
     useEffect(() => {
+        startModelCreationChain()
+    })
+
+    function startModelCreationChain() {
         const getData = async () => {
 
             // dataSmallJson
@@ -49,6 +54,7 @@ function PredictionPage() {
             }))
                 .filter(dataEntry => (dataEntry.x != null && dataEntry.y != null));
         }
+
         function convertToTensor(data) {
             // Wrapping these calculations in a tidy will dispose any
             // intermediate tensors.
@@ -89,6 +95,7 @@ function PredictionPage() {
             model = tf.sequential();
 
             model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+            model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
 
             // Add an output layer
             model.add(tf.layers.dense({units: 1, useBias: true}));
@@ -100,7 +107,7 @@ function PredictionPage() {
             // Prepare the model for training.
             model.compile({
                 // optimizer: tf.train.adam(0.0001),
-                optimizer: tf.train.adamax(0.01),
+                optimizer: tf.train.adam(),
                 loss: tf.losses.meanSquaredError,
                 metrics: ['mse'],
             });
@@ -113,8 +120,7 @@ function PredictionPage() {
             // rmsprop
             // sgd
 
-
-            const batchSize = 32; // 5, 20, 32, 64
+            const batchSize = 64; // 5, 20, 32, 64
             const epochs = 20;
 
             return await model.fit(inputs, labels, {
@@ -188,16 +194,10 @@ function PredictionPage() {
             testModel(model, data, tensorData);
         }
         run();
-    });
-
+    }
 
     function predictValue() {
         let value = userInputValueRef.current.value;
-        //
-        // var pred2 = model.predict(tf.tensor([parseInt(value)], [1, 1]));
-        // var readable_output = pred2.dataSync();
-        // console.log(readable_output);
-
         const {inputMax, inputMin, labelMin, labelMax} = tensorData;
 
         const [xs, pred] = tf.tidy(() => {
@@ -210,8 +210,8 @@ function PredictionPage() {
             return [unNormXs.dataSync(), unNormPreds.dataSync()];
         });
 
+        predictionValueRef.current.value = pred[0]
         console.log(pred[0]);
-
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -220,33 +220,77 @@ function PredictionPage() {
         },
         title: {
             flexGrow: 1,
-            color : "black"
+            color: "white"
         },
         AppBar: {
-            background : "beige"
+            background: "#607d8b"
         },
-        LoginButton: {
-            marginRight : 50
+        DokuButton: {
+            marginRight: 50,
+            color: "white"
+        },
+        content: {
+            marginLeft: 100,
+            marginRight: 100,
+            marginTop: 100,
+            display: "flex",
+            flexDirection: "column",
+            width: "400",
+            height: "100vh"
+        },
+        horizontalImages: {
+            display: "flex",
+            flexDirection: "row"
+        },
+        funcButton: {
+            width: "fit-content",
+            marginTop: 10,
+            marginBottom: 10
         }
     }));
     const classes = useStyles();
-    return <div className="App">
+
+    async function toggleVisorVisibility() {
+        // await model.save('downloads://my-model')
+        tfvis.visor().toggle()
+    }
+
+    return <div>
         <AppBar position="static" className={classes.AppBar}>
             <Toolbar>
-
                 <Typography variant="h6" className={classes.title}>
                     Deep Learning - André Schwarz
                 </Typography>
                 <Link to="/documentation">
-                    <Button color="primary" className={classes.LoginButton}>Aufgabe 3 - Dokumentation</Button>
+                    <Button color="primary" className={classes.DokuButton}>Aufgabe 3 - Zur Dokumentation</Button>
                 </Link>
             </Toolbar>
         </AppBar>
 
-        <Button variant="contained" color="primary" onClick={predictValue}> Primary
-        </Button>
-        <TextField id="userInput" label="User Input" type="number" variant="outlined" inputRef={userInputValueRef}/>
-
+        <div className={classes.content}>
+            <Button variant="contained" color="primary" onClick={predictValue} className={classes.funcButton}> Wert vorhersagen</Button>
+            <div className={classes.horizontalImages}>
+                <TextField id="userInput" label="User Input" type="number" variant="outlined"
+                           inputRef={userInputValueRef}/>
+                <TextField
+                    id="prediction"
+                    label="Prediction"
+                    defaultValue="Hello World"
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    inputRef={predictionValueRef}
+                />
+                {/*<TextField id="prediction" label="Prediction" type="readOnly" variant="outlined" InputProps={{*/}
+                {/*    readOnly: true,*/}
+                {/*}}*/}
+                {/*           inputRef={predictionValueRef}/>*/}
+            </div>
+            <Button variant="contained" color="primary" onClick={toggleVisorVisibility} className={classes.funcButton}>Modelldetails
+                anzeigen/ausblenden</Button>
+            <Button variant="contained" color="primary" onClick={startModelCreationChain} className={classes.funcButton}>Modellerstellung
+                neustarten</Button>
+        </div>
     </div>;
 }
 
