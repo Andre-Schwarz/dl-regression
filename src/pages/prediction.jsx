@@ -38,8 +38,11 @@ function PredictionPage() {
     }
 
     useEffect(() => {
-
         const getData = async () => {
+
+            // dataSmallJson
+            // dataMediumJson
+            // dataBigJson
             return dataBigJson.map(dataEntry => ({
                 x: dataEntry.x,
                 y: dataEntry.y,
@@ -111,7 +114,7 @@ function PredictionPage() {
             // SGD
 
 
-            const batchSize = 32;
+            const batchSize = 32; // 5, 20, 32, 64
             const epochs = 20;
 
             return await model.fit(inputs, labels, {

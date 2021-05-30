@@ -8,6 +8,8 @@ import {Link} from "react-router-dom";
 
 import small_32 from "../images/small_batch32.png"
 import small_deep from "../images/small_deep.png"
+import loss_overfitting from "../images/loss_overfitting.png"
+import bias_variance from "../images/bias_variance.jpeg"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,19 +80,47 @@ const DocumentationPage = () => {
                     Um ein Underfitting zu erzeugen, wurde der kleine Datensatz zusammen mit einem zu tiefem Netz
                     trainiert.
                     Insgesamt wurden 8 hidden layer erzeugt. Das Ergebnis ist ein Modell, das dem Datensatz kaum folgen
-                    kann. Die Ergebnisse sehen
-                    reproduzierbar wie folgt aus:
-                    <img src={small_deep}/>
+                    kann. Die Ergebnisse sehen reproduzierbar wie folgt aus:<br/>
+                    <img src={small_deep}/><br/>
                     Die Vorhersage ändert sich so gut wie nicht und beschreibt eine Gerade die dem Datensatz kaum folgt.
                 </p>
                 <h3>Overfitting</h3>
                 <p>
                     Bei der Verwenung des großen Datensatzes zusammen mit einem sehr kleinen Netz (lediglich Ein- und Ausgabeschicht) kommt es zu einem Overfitting.
-                    dies
+                    Der Fehler der beim Training entsteht fällt sehr schnell ab und bleibt nach einigen wenigen Epochs ohne große Änderungen.
+                    Das Modell hat die Trainingsdaten auswendig gelernt. <br/>
+                    <img src={loss_overfitting}/>
                 </p>
 
 
-                <h2>Bias und Varianz</h2>
+                <h3>Bias und Varianz</h3>
+
+                Es gibt Modelle, die zu vereinfacht sind und wichtige Beziehungen in den Trainingsdaten ignorieren, die ihre Vorhersagen hätten verbessern können.
+                Bei solchen Modellen spricht man von einem hohen Bias. Wenn ein Modell einen hohen Bias hat, sind die Vorhersagen konsistent falsch,
+                im besten Fall nur für bestimmte Bereiche der Daten und nicht für den gesamten Bereich.
+                Wenn wie in diesem Beispiel versucht, eine Linie an ein Streudiagramm anzupassen bei dem die Daten einem kurvenlinearen Muster zu folgen scheinen,
+                ist es relativ vorhersehbar, dass sich das Modell nicht gut an die Daten anpassen kann.
+                In einigen Teilen des Diagramms wird die Linie unter die Kurve fallen und in anderen Teilen wird sie über der Kurve liegen, wobei sie versucht, dem Verlauf einer Kurve zu folgen.
+
+                Es handelt sich also um Vorhersagen, die konstant falsch sind. Bei Modellen mit einem hohen Bias spricht man von einer Unteranpassung [an die Trainingsdaten],
+                und daher ist der Vorhersagefehler sowohl bei den Trainingsdaten als auch bei den Testdaten hoch.
+                Einige Modelle sind zu komplex, und bei der Suche nach wichtigen Beziehungen zwischen den Variablen werden zufällig auch bestimmte Beziehungen erfasst,
+                die sich nur als Ergebnis von Rauschen herausstellen. Mit anderen Worten, das Modell berücksichtigt bestimmte "Ausreißer" in den Trainingsdaten,
+                die sich nicht auf die Testdaten verallgemeinern lassen. In einem solchen Fall liegen die Vorhersagen des Modells wieder einmal daneben,
+                aber hier ist der wichtige Teil: Sie liegen nicht konstant daneben. Bei kleinen Änderungen der Daten, können sehr unterschiedliche Vorhersagen gemacht werden.
+                Das Modell ist also zu empfindlich und reagiert übermäßig auf die Veränderung der Daten. Bei Modellen mit hoher Varianz spricht man von einer
+                Überanpassung [an die Trainingsdaten], und daher ist ihr Vorhersagefehler bei den Trainingsdaten trügerisch niedrig, bei den Testdaten aber hoch,
+                daher die fehlende Generalisierung.
+
+                <br/>
+                Der Zusammenhand ist in folgendem Bild sehr gut ersichtlich :
+
+                <img src={bias_variance}/>
+                <br/>https://towardsdatascience.com/bias-and-variance-but-what-are-they-really-ac539817e171 <br/> <br/>
+
+                Das Ziel ist dementsprechend das Modell auf die Modell Komplexität anzupassen. Ein unglaubwürdig geringer Fehler beim Training weist auf ein Problem hin. Dies ist bei
+                den Versuchen zu dieser Aufgabe geschehen (beschrieben in Under- Overfitting).
+
                 <h2>Aktivierungsfunktionen</h2>
                 <h2>Lernrate und Optimizer</h2>
                 <h2>Anzahl der Epochs/Batch sizes</h2>
@@ -98,8 +128,7 @@ const DocumentationPage = () => {
                     Die Anzahl der Epochs wurde zum Start auf 20 festgelegt. Um eine vergleichbare Erzeugung des Models
                     zu gewährleisten.
                     Jedoch war bei so gut wie allen Modellen ersichtlich, dass der Fehler ab 10 Epochs nicht mehr stark
-                    abnimmt.
-                    Update !!!!
+                    abnimmt. Dadurch ist der Einfluss als eher gering einzuschätzen.
 
                     Die Batch Size hat einen großen Einfluss auf die Qualität des Modells. Diese muss auf die
                     Trainingsdatengröße angepasst
