@@ -60,10 +60,18 @@ const DocumentationPage = () => {
                 <h1>Herangehensweise, Dokumentation und Quellen</h1>
 
                 <h2>Tech Stack</h2>
-                <p>
-                    react <br/>
-                    tensorflow
-                </p>
+
+                <h4>React js</h4>
+                Diese Anwendung wurde mit React erstellt. Dabei übernimmt React die Entwicklung des User Interfaces sowie der Navigation zwischen den
+                beiden Seiten (React Router).
+
+                <h4>Tensorflow js</h4>
+                Tensorflow ist ein Framework, das die Erstellung von Neuronalen Netzen ermöglicht. In diesem Fall wurde die Version fü2r Javascript
+                verwendet.
+                <h4>tensorflow/tfjs-vis</h4>
+                tfjs-vis ist eine Bibliothek von Tensorflow die es erlaubt die erstellten Modelle zu visualisieren und das Training zu überwachen.
+                <h4>Material UI</h4>
+                Material UI wurde verwendet um die Standard UI Komponenten zu benutzen.
 
                 <h2>Daten</h2>
                 <p>
@@ -140,8 +148,7 @@ const DocumentationPage = () => {
                 <br/>https://towardsdatascience.com/bias-and-variance-but-what-are-they-really-ac539817e171 <br/> <br/>
 
                 Das Ziel ist dementsprechend das Modell auf die Modell Komplexität anzupassen. Ein unglaubwürdig
-                geringer Fehler beim Training weist auf ein Problem hin. Dies ist bei
-                den Versuchen zu dieser Aufgabe geschehen (beschrieben in Under- Overfitting).
+                geringer Fehler beim Training weist auf ein Problem hin und nicht auf ein generell arbeitendes Netz.
 
                 <h2>Aktivierungsfunktionen</h2>
                 <h2>Lernrate und Optimizer</h2>
@@ -162,12 +169,28 @@ const DocumentationPage = () => {
                 </div>
 
                 <br/>
-                Bei dem ersten Beispiel wurde eine Lernrate von 0.0001 gewählt. Hier ist ein enorm hoher Fehler zu erkennen,
+                Bei dem ersten Beispiel wurde eine Lernrate von 0.0001 gewählt. Hier ist ein enorm hoher Fehler zu
+                erkennen,
                 der sich im Laufe des Trainings kaum verringert.
-                Das zweite Beispiel wurde mit der Standard Lernrate von 0.001 durchgeführt. Hierbei ist eine Verringerung des Fehlers erkennbar,
+                Das zweite Beispiel wurde mit der Standard Lernrate von 0.001 durchgeführt. Hierbei ist eine
+                Verringerung des Fehlers erkennbar,
                 der über den vollen Trainingsvorgang stetig abnimmt.
-                Das dritte Beispiel wurde mit einer Lernrate von 0.5 durchgeführt. Der Fehler nimmt schon nach dem ersten Epoch stark ab und läuft
+                Das dritte Beispiel wurde mit einer Lernrate von 0.5 durchgeführt. Der Fehler nimmt schon nach dem
+                ersten Epoch stark ab und läuft
                 dann auf einem sehr geringen Level weiter. Der Lernprozess findet jetzt kaum noch statt.
+
+                <h3>Optimizer</h3>
+
+                Tensorflow JS bietet folgende Optimizer:
+                adadelta, adagrad, adam, adamax, momentum, rmsprop, sgd
+                <br/>
+                Es wurden alle sieben Optimizer getestet. Um die Ergebnisse vergleichen zu können, immer mit einer
+                Lernrate von 0.01.
+                Die Ergebnisse sind sich sehr ähnlich (die Kurven der Fehler) und hängen eher von der Lernrate ab. Es
+                lassen sich die selben
+                Effekte wie im vorigen Kapitel erzeugen.
+                Der Adam Optimizer war durchweg um einen kleinen Betrag besser (nach 20 Epochs).
+
 
                 <h2>Anzahl der Epochs/Batch sizes</h2>
                 <p>
@@ -190,7 +213,7 @@ const DocumentationPage = () => {
                     Size von 32 erzeugt.
                 </p>
                 <img src={small_32} alt={small_32}/>
-                <h2>Anzahl der Hidden Layer und Neuronen</h2>
+
             </div>
         </div>
     );
