@@ -10,7 +10,7 @@ import DocumentationPage from "./pages/documentation";
 function App() {
 
     return <div className="App">
-        <Router>
+        <Router basename="/dl-regression">
             <Route exact path="/" component={PredictionPage}/>
             <Route exact path="/documentation" component={DocumentationPage}/>
         </Router>
