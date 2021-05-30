@@ -1,6 +1,6 @@
 var calculatedData = [];
 
-for (let index = 0; index < 50; index+=0.01) {
+for (let index = 0; index < 50; index+=1) {
 
     const y = (index+0.8)*(index-0.2)*(index-0.3)*(index-0.6);
     var obj = {
@@ -13,7 +13,7 @@ for (let index = 0; index < 50; index+=0.01) {
 var jsonData = JSON.stringify(calculatedData);
 
 var fs = require('fs');
-fs.writeFile("src/data/test.json", jsonData, function(err) {
+fs.writeFile("src/data/data_small.json", jsonData, function(err) {
     if (err) {
         console.log(err);
     }
