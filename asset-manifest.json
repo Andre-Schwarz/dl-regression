@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dl-regression/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/dl-regression/static/js/main.8bd9ed1b.chunk.js",
-    "main.js.map": "/dl-regression/static/js/main.8bd9ed1b.chunk.js.map",
+    "main.js": "/dl-regression/static/js/main.9b2e45cc.chunk.js",
+    "main.js.map": "/dl-regression/static/js/main.9b2e45cc.chunk.js.map",
     "runtime-main.js": "/dl-regression/static/js/runtime-main.2cc15c77.js",
     "runtime-main.js.map": "/dl-regression/static/js/runtime-main.2cc15c77.js.map",
     "static/js/2.2670fc1e.chunk.js": "/dl-regression/static/js/2.2670fc1e.chunk.js",
@@ -24,6 +24,6 @@
     "static/js/runtime-main.2cc15c77.js",
     "static/js/2.2670fc1e.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.8bd9ed1b.chunk.js"
+    "static/js/main.9b2e45cc.chunk.js"
   ]
 }
